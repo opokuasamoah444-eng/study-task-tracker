@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Task Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">STUDENT ORGANIZER</p>
+        <h1>Study Task Tracker</h1>
+        <p class="subtitle">Plan your study time and stay on top of assignments.</p>
+      </div>
+      <div id="account-area" class="account-area" hidden>
+        <span id="user-email"></span>
+        <button id="logout-button" class="secondary-button" type="button">Log out</button>
+      </div>
+    </header>
+
+    <section id="auth-section" class="panel auth-panel">
+      <h2 id="auth-heading">Welcome back</h2>
+      <p class="muted">Log in to access your saved study tasks.</p>
+      <form id="auth-form">
+        <label for="email">Email address</label>
+        <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        <label for="password">Password</label>
+        <div class="password-row">
+          <input id="password" type="password" autocomplete="current-password" minlength="6" placeholder="At least 6 characters" required>
+          <button id="toggle-password" class="secondary-button" type="button">Show</button>
+        </div>
+        <button id="auth-submit" class="primary-button full-width" type="submit">Log in</button>
+        <p id="auth-message" class="message" role="alert"></p>
+      </form>
+      <p class="switch-auth"><span id="switch-prompt">Don't have an account?</span>
+        <button id="switch-auth-button" class="text-button" type="button">Create account</button>
+      </p>
+      <p class="small-note">New accounts may need to confirm their email, depending on your Supabase Auth settings.</p>
+    </section>
+
+    <section id="tracker-section" hidden>
+      <section class="panel">
+        <h2>Add a new task</h2>
+        <form id="task-form" class="task-form">
+          <div class="field">
+            <label for="task-title">Task title</label>
+            <input id="task-title" type="text" maxlength="120" placeholder="e.g. Complete chapter 3 questions" required>
+          </div>
+          <div class="field">
+            <label for="task-subject">Subject / Course</label>
+            <input id="task-subject" type="text" maxlength="80" placeholder="e.g. Mathematics">
+          </div>
+          <div class="field">
+            <label for="task-priority">Priority</label>
+            <select id="task-priority">
+              <option value="Normal">Normal</option>
+              <option value="High">High</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          <button class="primary-button add-button" type="submit">＋ Add task</button>
+        </form>
+        <p id="task-message" class="message" role="alert"></p>
+      </section>
+
+      <section class="panel task-panel">
+        <div class="task-heading">
+          <div>
+            <h2>My tasks</h2>
+            <p id="task-count" class="muted">Loading tasks...</p>
+          </div>
+          <label class="filter-label" for="task-filter">Show
+            <select id="task-filter">
+              <option value="all">All tasks</option>
+              <option value="active">Incomplete</option>
+              <option value="completed">Completed</option>
+            </select>
+          </label>
+        </div>
+        <div id="task-list" class="task-list" aria-live="polite"></div>
+      </section>
+    </section>
+
+    <footer>Study Task Tracker · Your tasks are stored securely in your Supabase database.</footer>
+  </main>
+</body>
+</html>
